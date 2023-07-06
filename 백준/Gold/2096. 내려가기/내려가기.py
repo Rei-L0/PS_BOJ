@@ -1,8 +1,6 @@
 import sys
 
 n = int(sys.stdin.readline().rstrip())
-max_val = [0, 0, 0]
-min_val = [10, 10, 10]
 
 for i in range(n):
     l, c, r = map(int, sys.stdin.readline().rstrip().split())
