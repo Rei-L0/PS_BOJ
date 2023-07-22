@@ -1,7 +1,7 @@
 # 1747
 
 n = int(input())
-check_num = [False, False] + [True] * 12345678
+check_num = [False, False] + [True] * 1234567
 prime = []
 
 for i in range(2, len(check_num)):
