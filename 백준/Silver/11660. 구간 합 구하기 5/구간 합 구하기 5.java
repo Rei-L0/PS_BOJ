@@ -1,43 +1,56 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
 
 public class Main {
-	static StringTokenizer stringTokenizer;
-	static int n, m;
-	static int[][] num;
 
+	private static StringBuilder sb = new StringBuilder();
+	private static StringTokenizer st;
+	
+	private static int[][] dp;
+	private static int[][] input;
+	static int N,M;
+	
 	public static void main(String[] args) throws Exception {
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-		stringTokenizer = new StringTokenizer(bufferedReader.readLine());
-		StringBuilder stringBuilder = new StringBuilder();
-
-		n = Integer.parseInt(stringTokenizer.nextToken());
-		m = Integer.parseInt(stringTokenizer.nextToken());
-
-		num = new int[n + 1][n + 1];
-
-		for (int i = 1; i < n + 1; i++) {
-			stringTokenizer = new StringTokenizer(bufferedReader.readLine());
-			for (int j = 1; j < n + 1; j++) {
-				num[i][j] = Integer.parseInt(stringTokenizer.nextToken());
-				num[i][j] += num[i][j - 1];
+		/**
+		 * 0. 입력파일 읽어들이기
+		 */
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		 BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
+		 
+		st = new StringTokenizer(in.readLine());
+		N = Integer.parseInt(st.nextToken());
+		M = Integer.parseInt(st.nextToken());
+		dp = new int[N+1][N+1];
+		input = new int[N+1][N+1];
+		
+		for(int i=1;i<=N;i++) {
+			st = new StringTokenizer(in.readLine());
+			for(int j=1;j<=N;j++) {
+				input[i][j] = Integer.parseInt(st.nextToken());
+				dp[i][j] = dp[i][j-1]+ input[i][j];	//누적합
 			}
 		}
+		
 
-		for (int i = 0; i < m; i++) {
-			stringTokenizer = new StringTokenizer(bufferedReader.readLine());
-			int sx = Integer.parseInt(stringTokenizer.nextToken());
-			int sy = Integer.parseInt(stringTokenizer.nextToken());
-			int ex = Integer.parseInt(stringTokenizer.nextToken());
-			int ey = Integer.parseInt(stringTokenizer.nextToken());
-			int ans = 0;
-			for (int j = sx; j <= ex; j++) {
-				ans += num[j][ey] - num[j][sy - 1];
+		
+		int x1,y1,x2,y2;
+		
+		for(int i=0;i<M;i++) {
+			int sm =0;
+			st = new StringTokenizer(in.readLine());
+			x1 = Integer.parseInt(st.nextToken());
+			y1 = Integer.parseInt(st.nextToken());
+			x2 = Integer.parseInt(st.nextToken());
+			y2 = Integer.parseInt(st.nextToken());
+			for(int j=x1;j<=x2;j++) {
+				sm += (dp[j][y2]-dp[j][y1-1]);
 			}
-			stringBuilder.append(ans).append('\n');
-		}
-		System.out.print(stringBuilder);
+			out.write(sm + "\n");
+		}	
+		out.flush();
+        out.close();
 	}
-
 }
