@@ -46,10 +46,6 @@ public class Main {
 					arr[die.x][die.y] = 0;
 				}
 			}
-			for (int i = 0; i < kill.size(); i++) {
-				Pos die = kill.get(i);
-				arr[die.x][die.y] = 0;
-			}
 			move(arr);
 		}
 		return dieCount;
