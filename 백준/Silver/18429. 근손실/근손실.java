@@ -1,8 +1,5 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
 
@@ -10,6 +7,8 @@ public class Main {
 
 	static int[] num;
 
+	// 키트 번호를 순열로 탐색한다.
+	// 해당 키트 사용하여 중량 500미만이 될 경우 탐색 X
 	static void solve(int count, int weight, boolean[] visit) {
 		if (count == n) {
 			ans++;
@@ -39,9 +38,9 @@ public class Main {
 		for (int i = 0; i < n; i++)
 			num[i] = Integer.parseInt(st.nextToken());
 
+		// 초기 중량 500에서 시작
 		solve(0, 500, new boolean[n]);
 
 		System.out.println(ans);
 	}
-
 }
