@@ -63,6 +63,10 @@ public class Main {
 		System.out.println(dis[n]);
 	}
 
+	// 다익스트라
+	// 노드에 시간 표시
+	// 현재 노드 시간이 다음으로 가는 간선의 시간보다 클 경우
+	// 현재 노드 시간과 작거나 같을 때 까지 m을 더해준다.
 	static void solve() {
 		pq.add(new Edge(1, 0));
 		dis[1] = 0;
