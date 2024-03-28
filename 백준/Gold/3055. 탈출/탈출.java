@@ -99,7 +99,7 @@ public class Main {
 					continue;
 				if (board[nx][ny] == '.') {
 					nextQ.add(new Pos(nx, ny));
-					board[nx][ny] = '*';
+					board[nx][ny] = 'S';
 				}
 				if (board[nx][ny] == 'D') {
 					check = true;
