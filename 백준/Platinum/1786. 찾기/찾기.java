@@ -3,11 +3,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-// KMP 알고리즘
 public class Main {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
 
 		String t = br.readLine();
 		String p = br.readLine();
@@ -49,10 +49,11 @@ public class Main {
 			}
 		}
 
-		System.out.println(cnt);
+		sb.append(cnt).append("\n");
 		for (int i : list) {
-			System.out.print((i + 1) + " ");
+			sb.append(i + 1).append(" ");
 		}
+		System.out.println(sb);
 	}
 
 }
