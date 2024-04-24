@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -8,7 +7,6 @@ import java.util.Objects;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-// 23817 포항항 mst
 public class Main {
 
     static StringTokenizer st;
@@ -78,17 +76,13 @@ public class Main {
             }
         }
 
-        if (list.size() < 5) {
-            System.out.println(-1);
-        } else {
-            graph = new int[list.size()][list.size()];
-            startDis = bfs(start);
-            for (int i = 0; i < list.size(); i++) {
-                graph[i] = bfs(list.get(i));
-            }
-            permutation(0, new int[5], new boolean[list.size()]);
-            System.out.println((ans == Integer.MAX_VALUE) ? -1 : ans);
+        graph = new int[list.size()][list.size()];
+        startDis = bfs(start);
+        for (int i = 0; i < list.size(); i++) {
+            graph[i] = bfs(list.get(i));
         }
+        permutation(0, new int[5], new boolean[list.size()]);
+        System.out.println((ans == Integer.MAX_VALUE) ? -1 : ans);
     }
 
     static void permutation(int cnt, int[] arr, boolean[] visit) {
