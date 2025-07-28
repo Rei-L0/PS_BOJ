@@ -1,37 +1,87 @@
 import java.util.*;
 
+
+
 class Solution {
-    static int answer = 0;
+
+    
+
+    static int M, answer = 0;
+
+    
+
     public int solution(int n, int[][] q, int[] ans) {
-        combination(1,0,n,new int [5], q, ans);
+
+        M = q.length;
+
+        makeCombination(1, 0, n, new int[5], q, ans);
+
         return answer;
+
     }
 
-    public void combination (int start, int cnt, int n, int [] guess, int [][] q, int [] ans) {
-        if(cnt == 5) {
-            HashSet <Integer> set = new HashSet<>();
+    
+
+    public void makeCombination(int now, int idx, int N, int[] res, int[][] q, int[] ans){
+
+        if(idx == 5){
+
+            Set<Integer> set = new HashSet<>();
+
             for(int i = 0; i < 5; i++){
-                set.add(guess[i]);
+
+                set.add(res[i]);
+
             }
-            isPossible(q, ans, set);
+
+            check(set, q, ans);
+
             return;
+
+        }        
+
+        for(int i = now; i <= N; i++){
+
+            res[idx] = i;
+
+            makeCombination(i + 1, idx + 1, N, res, q, ans);
+
         }
 
-        for(int i = start; i <= n; i ++) {
-            guess[cnt] = i;
-            combination(i+1, cnt+1, n, guess, q, ans);
-        }
     }
 
-    public void isPossible(int [][]q, int [] ans, HashSet<Integer> set) {
-        for(int i = 0; i < q.length; i ++) {
-            int sum = 0;
+    
+
+    public void check(Set<Integer> set, int[][] q, int[] ans){
+
+        for(int i = 0; i < M; i++){
+
+            int count = 0;
+
             for(int j = 0; j < 5; j++){
-                if(set.contains(q[i][j])) sum++;
+
+                if(set.contains(q[i][j])){
+
+                    count++;
+
+                }
+
             }
-            if(sum != ans[i]) return;
+
+            if(count != ans[i]){
+
+                return;
+
+            }
+
         }
-        answer ++;
+
+        answer++;
+
         return;
+
     }
+
+    
+
 }
