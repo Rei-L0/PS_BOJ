@@ -1,65 +1,71 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
+import java.io.*;
 
 public class Main {
-
-    static StringTokenizer st;
+    
+    static BufferedReader br;
     static StringBuilder sb;
-
-    static class Info {
-
-        int s;
-        int e;
-
-        public Info(int s, int e) {
-            this.s = s;
-            this.e = e;
-        }
-    }
-
-    public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
+    static StringTokenizer st;
+    
+	public static void main(String[] args) throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        
         st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
-
-        long ans = m;
-
-        List<Info> list = new ArrayList<>();
-
-        for (int i = 0; i < n; i++) {
+        
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+        long res = M;
+        
+        List<Pair> list = new ArrayList<>();
+        
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
-            int s = Integer.parseInt(st.nextToken());
-            int e = Integer.parseInt(st.nextToken());
-            if (e < s) {
-                list.add(new Info(s, e));
-            }
+            
+            long s = Long.parseLong(st.nextToken());
+            long e = Long.parseLong(st.nextToken());
+            
+            if (s > e) list.add(new Pair(e, s));
         }
-
-        list.sort(Comparator.comparing(o -> o.e));
-
-        int start = list.get(0).s;
-        int end = list.get(0).e;
-
-        for (Info info : list) {
-            if (end < info.e) {
-                ans += (end - start) * 2L;
-                start = info.e;
-                end = info.s;
-                continue;
+        
+        if (list.size() > 0) {
+            Collections.sort(list);
+        
+            long left = list.get(0).s;
+            long right = list.get(0).e;
+        
+            for (int i = 0; i < list.size(); i++) {
+                long s = list.get(i).s;
+                long e = list.get(i).e;
+            
+                if (s <= right) {
+                    right = Math.max(right, e);
+                } else {
+                    res += (right - left) * 2;
+                    left = s;
+                    right = e;
+                }
             }
-            end = Math.max(end, info.s);
-            start = Math.min(start, info.e);
+		    res += (right - left) * 2;
         }
-        ans += (end - start) * 2L;
-
-        System.out.println(ans);
-
-    }
-
+		
+		System.out.print(res);
+	}
+	
+	static class Pair implements Comparable<Pair> {
+	    long s;
+	    long e;
+	    
+	    Pair (long s, long e) {
+	        this.s = s;
+	        this.e = e;
+	    }
+	    
+	    @Override
+        public int compareTo (Pair p) {
+            if (this.s != p.s) {
+                return Long.compare(this.s, p.s);
+            }
+            return Long.compare(this.e, p.e);
+        }
+	}
 }
